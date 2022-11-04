@@ -42,7 +42,7 @@ public class DingJobAlarm implements JobAlarm {
             content.append("\n> 执行器ip：").append(jobLog.getExecutorAddress());
             content.append("\n> 任务参数：").append(jobLog.getExecutorParam());
             content.append("\n> xxl-job地址：").append(xxlJobUrl);
-            content.append("\n);
+            content.append("\n");
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
