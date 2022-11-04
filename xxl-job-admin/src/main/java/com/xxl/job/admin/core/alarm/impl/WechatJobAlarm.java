@@ -17,7 +17,7 @@ public class WechatJobAlarm implements JobAlarm {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${alarm.wechatWebhook}")
+    @Value("${alarm.wechatWebhook:default}")
     private String wechatWebhook;
     private String wechatUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=";
     @Value("${alarm.wechatTitle:default}")
@@ -26,24 +26,27 @@ public class WechatJobAlarm implements JobAlarm {
     @Override
     public boolean doAlarm(XxlJobInfo info, XxlJobLog jobLog) {
         System.out.println("wechat ---------------------");
-        try {
+        if (null == wechatWebhook || "default".equals(wechatWebhook.trim()) || "".equals(wechatWebhook.trim())) {
+            System.out.println("+++++++++获取到的企业微信的配置为空，跳过企业微信通知！+++++++++");
+            return false
+        } try {
             HashMap<String, Object> map = new HashMap<>(2);
-            map.put("msgtype", "text");
+            map.put("msgtype", "markdown");
             HashMap<String, String> cmap = new HashMap<>(1);
             StringBuilder content = new StringBuilder("任务失败:");
-            content.append("{所属环境：").append(wechatTitle);
-            content.append(",任务名称：").append(info.getJobDesc());
-            content.append(",执行器名称：").append(info.getExecutorHandler());
-            content.append(",执行器ip：").append(jobLog.getExecutorAddress());
-            content.append(",任务参数：").append(jobLog.getExecutorParam());
+            content.append("** 所属环境：").append(wechatTitle);
+            content.append("> 任务名称：").append(info.getJobDesc());
+            content.append("> 执行器名称：").append(info.getExecutorHandler());
+            content.append("> 执行器ip：").append(jobLog.getExecutorAddress());
+            content.append("> 任务参数：").append(jobLog.getExecutorParam());
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
-            content.append(",执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("}");
+            content.append(",执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             cmap.put("content", content.toString());
-            map.put("text", cmap);
+            map.put("markdown", cmap);
             String[] tokens = wechatWebhook.split(",");//根据，切分字符串
             for (int i = 0; i < tokens.length; i++) {
                 wechatUrl.concat(tokens[i]);
