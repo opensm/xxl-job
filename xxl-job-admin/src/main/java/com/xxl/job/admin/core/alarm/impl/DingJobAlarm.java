@@ -19,7 +19,7 @@ public class DingJobAlarm implements JobAlarm {
 
     @Value("${alarm.dingWebhook:default}")
     private String dingWebhook;
-    @Value("${alarm.xxlJobUrl:'http://localhost'}")
+    @Value("${alarm.xxlJobUrl:default}")
     private String xxlJobUrl;
     @Value("${alarm.dingTitle:default}")
     private String dingTitle;
