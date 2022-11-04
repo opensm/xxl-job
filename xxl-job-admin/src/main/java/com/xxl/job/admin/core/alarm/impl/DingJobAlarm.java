@@ -47,7 +47,7 @@ public class DingJobAlarm implements JobAlarm {
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
-            content.append(",执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("}");
+            content.append("\n> 执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())).append("}");
             cmap.put("content", content.toString());
             map.put("markdown", cmap);
             restTemplate.postForEntity(dingWebhook, map, Object.class);

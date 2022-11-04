@@ -48,7 +48,7 @@ public class WechatJobAlarm implements JobAlarm {
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
-            content.append(",执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            content.append("\n >执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             cmap.put("content", content.toString());
             map.put("markdown", cmap);
             String[] tokens = wechatWebhook.split(",");//根据，切分字符串
