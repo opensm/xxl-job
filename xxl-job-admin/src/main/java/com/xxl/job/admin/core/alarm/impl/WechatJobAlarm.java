@@ -35,14 +35,14 @@ public class WechatJobAlarm implements JobAlarm {
             HashMap<String, Object> map = new HashMap<>(2);
             map.put("msgtype", "markdown");
             HashMap<String, String> cmap = new HashMap<>(1);
-            StringBuilder content = new StringBuilder("** XXL-JOB-Admin 通知:");
-            content.append("*** 任务失败通知：");
-            content.append("> 所属环境：").append(wechatTitle);
-            content.append("> 任务名称：").append(info.getJobDesc());
-            content.append("> 执行器名称：").append(info.getExecutorHandler());
-            content.append("> 执行器ip：").append(jobLog.getExecutorAddress());
-            content.append("> 任务参数：").append(jobLog.getExecutorParam());
-            content.append("> xxl-job地址：").append(xxlJobUrl);
+            StringBuilder content = new StringBuilder("## XXL-JOB-Admin 通知:");
+            content.append("\n### 任务失败通知：");
+            content.append("\n> 所属环境：").append(wechatTitle);
+            content.append("\n> 任务名称：").append(info.getJobDesc());
+            content.append("\n> 执行器名称：").append(info.getExecutorHandler());
+            content.append("\n> 执行器ip：").append(jobLog.getExecutorAddress());
+            content.append("\n> 任务参数：").append(jobLog.getExecutorParam());
+            content.append("\n> xxl-job地址：").append(xxlJobUrl);
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));

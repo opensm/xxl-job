@@ -34,8 +34,8 @@ public class DingJobAlarm implements JobAlarm {
             HashMap<String, Object> map = new HashMap<>(2);
             map.put("msgtype", "markdown");
             HashMap<String, String> cmap = new HashMap<>(1);
-            StringBuilder content = new StringBuilder("** XXL-JOB-Admin 通知:");
-            content.append("\n*** 任务失败通知：");
+            StringBuilder content = new StringBuilder("## XXL-JOB-Admin 通知:");
+            content.append("\n### 任务失败通知：");
             content.append("\n> 所属环境：").append(dingTitle);
             content.append("\n> 任务名称：").append(info.getJobDesc());
             content.append("\n> 执行器名称：").append(info.getExecutorHandler());
