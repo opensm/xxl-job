@@ -29,7 +29,7 @@ public class DingJobAlarm implements JobAlarm {
         System.out.println("ding ---------------------");
         if (null == dingWebhook || "default".equals(dingWebhook.trim()) || "".equals(dingWebhook.trim())) {
             System.out.println("+++++++++获取到的钉钉的配置为空，跳过钉钉通知！+++++++++");
-            return false
+            return false;
         } try {
             HashMap<String, Object> map = new HashMap<>(2);
             map.put("msgtype", "markdown");
