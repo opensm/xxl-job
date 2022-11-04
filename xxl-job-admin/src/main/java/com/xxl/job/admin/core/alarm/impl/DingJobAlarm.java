@@ -19,6 +19,8 @@ public class DingJobAlarm implements JobAlarm {
 
     @Value("${alarm.dingWebhook:default}")
     private String dingWebhook;
+    @Value("${alarm.xxlJobUrl:'http://localhost'}")
+    private String xxlJobUrl;
     @Value("${alarm.dingTitle:default}")
     private String dingTitle;
 
@@ -32,12 +34,14 @@ public class DingJobAlarm implements JobAlarm {
             HashMap<String, Object> map = new HashMap<>(2);
             map.put("msgtype", "markdown");
             HashMap<String, String> cmap = new HashMap<>(1);
-            StringBuilder content = new StringBuilder("任务失败:");
-            content.append("** 所属环境：").append(dingTitle);
+            StringBuilder content = new StringBuilder("** XXL-JOB-Admin 通知:");
+            content.append("\n*** 任务失败通知：");
+            content.append("\n> 所属环境：").append(dingTitle);
             content.append("\n> 任务名称：").append(info.getJobDesc());
             content.append("\n> 执行器名称：").append(info.getExecutorHandler());
             content.append("\n> 执行器ip：").append(jobLog.getExecutorAddress());
             content.append("\n> 任务参数：").append(jobLog.getExecutorParam());
+            content.append("\n> xxl-job地址：").append(xxlJobUrl);
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
