@@ -19,7 +19,7 @@ public class WechatJobAlarm implements JobAlarm {
 
     @Value("${alarm.wechatWebhook}")
     private String wechatWebhook;
-    private String wechatUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key="
+    private String wechatUrl = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=";
     @Value("${alarm.wechatTitle:default}")
     private String wechatTitle;
 
