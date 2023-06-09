@@ -30,9 +30,8 @@ public class WechatJobAlarm implements JobAlarm {
 
     @Override
     public boolean doAlarm(XxlJobInfo info, XxlJobLog jobLog) {
-        System.out.println("wechat ---------------------");
         if (null == wechatWebhook || "default".equals(wechatWebhook.trim()) || "".equals(wechatWebhook.trim())) {
-            System.out.println("+++++++++获取到的企业微信的配置为空，跳过企业微信通知！+++++++++");
+            logger.warn("获取到的企业微信的配置为空，跳过企业微信通知！");
             return false;
         } try {
             HashMap<String, Object> map = new HashMap<>(2);

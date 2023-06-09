@@ -26,9 +26,8 @@ public class DingJobAlarm implements JobAlarm {
 
     @Override
     public boolean doAlarm(XxlJobInfo info, XxlJobLog jobLog) {
-        System.out.println("ding ---------------------");
         if (null == dingWebhook || "default".equals(dingWebhook.trim()) || "".equals(dingWebhook.trim())) {
-            System.out.println("+++++++++获取到的钉钉的配置为空，跳过钉钉通知！+++++++++");
+            logger.warn("获取到的钉钉的配置为空，跳过钉钉通知！");
             return false;
         } try {
             HashMap<String, Object> map = new HashMap<>(2);
@@ -45,6 +44,7 @@ public class DingJobAlarm implements JobAlarm {
             content.append("\n");
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
+                logger.info("当前请求ding消息内容为：", msg);
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
