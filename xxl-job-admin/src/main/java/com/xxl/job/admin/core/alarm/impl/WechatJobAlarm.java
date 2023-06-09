@@ -49,19 +49,21 @@ public class WechatJobAlarm implements JobAlarm {
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
                 logger.info("当前请求wechat消息内容为：" + msg);
-                //msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
-                msg = msg.substring(msg.lastIndexOf("</span><br>"), msg.lastIndexOf("<br><br>"));
+                // msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
+                content.append("\n> " + msg);
             }
-            content.append(msg);
-            content.append("\n >执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            // content.append(msg);
+            content.append("\n> 执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             cmap.put("content", content.toString());
             map.put("markdown", cmap);
-            String[] tokens = wechatWebhook.split(",");//根据，切分字符串
+            String[] tokens = wechatWebhook.split(","); //根据，切分字符串
             for (int i = 0; i < tokens.length; i++) {
                 wechatUrl.concat(tokens[i]);
                 logger.info("当前请求wechat地址为：" + wechatUrl.concat(tokens[i]));
                 restTemplate.postForEntity(wechatUrl.concat(tokens[i]), map, Object.class);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
