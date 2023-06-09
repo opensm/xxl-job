@@ -49,7 +49,8 @@ public class WechatJobAlarm implements JobAlarm {
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
                 logger.info("当前请求wechat消息内容为：" + msg);
-                msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
+                //msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
+                msg = msg.substring(msg.lastIndexOf("</span><br>"), msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
             content.append("\n >执行任务时间：").append(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
