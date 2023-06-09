@@ -1,5 +1,7 @@
 package com.xxl.job.admin.core.alarm.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.xxl.job.admin.core.alarm.JobAlarm;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.model.XxlJobLog;
@@ -14,6 +16,8 @@ import java.util.HashMap;
 
 @Component
 public class DingJobAlarm implements JobAlarm {
+
+    private static Logger logger = LoggerFactory.getLogger(DingJobAlarm.class);
 
     private final RestTemplate restTemplate = new RestTemplate();
 
