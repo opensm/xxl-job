@@ -46,6 +46,7 @@ public class WechatJobAlarm implements JobAlarm {
             content.append("\n");
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
+                System.out.println("waring+++++++++++++++++++++++ 当前请求wechat消息内容为：" + msg);
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
