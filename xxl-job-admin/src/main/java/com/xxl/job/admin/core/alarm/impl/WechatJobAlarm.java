@@ -48,7 +48,7 @@ public class WechatJobAlarm implements JobAlarm {
             content.append("\n");
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
-                logger.info("当前请求wechat消息内容为：", msg);
+                logger.info("当前请求wechat消息内容为：" + msg);
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
@@ -58,7 +58,7 @@ public class WechatJobAlarm implements JobAlarm {
             String[] tokens = wechatWebhook.split(",");//根据，切分字符串
             for (int i = 0; i < tokens.length; i++) {
                 wechatUrl.concat(tokens[i]);
-                logger.info("当前请求wechat地址为：", wechatUrl.concat(tokens[i]));
+                logger.info("当前请求wechat地址为：" + wechatUrl.concat(tokens[i]));
                 restTemplate.postForEntity(wechatUrl.concat(tokens[i]), map, Object.class);
             }
         } catch (Exception e) {

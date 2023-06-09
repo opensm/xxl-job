@@ -48,7 +48,7 @@ public class DingJobAlarm implements JobAlarm {
             content.append("\n");
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
-                logger.info("当前请求ding消息内容为：", msg);
+                logger.info("当前请求ding消息内容为：" + msg);
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
