@@ -50,7 +50,7 @@ public class WechatJobAlarm implements JobAlarm {
             if (null != msg && !"".equals(msg.trim())) {
                 logger.info("当前请求wechat消息内容为：" + msg);
                 // msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
-                msg = msg.replaceAll("<br>","");
+                msg = msg.replaceAll("<br>",". ");
                 msg = msg.replaceAll("<span .*>","");
                 msg = msg.replaceAll("</span>","");
                 content.append("\n> " + msg);
