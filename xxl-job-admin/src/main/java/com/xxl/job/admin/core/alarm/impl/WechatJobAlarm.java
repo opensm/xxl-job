@@ -3,6 +3,8 @@ package com.xxl.job.admin.core.alarm.impl;
 import com.xxl.job.admin.core.alarm.JobAlarm;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.model.XxlJobLog;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 public class WechatJobAlarm implements JobAlarm {
 
     private final RestTemplate restTemplate = new RestTemplate();
+    private static Logger logger = LoggerFactory.getLogger(WechatJobAlarm.class);
 
     @Value("${alarm.wechatWebhook:default}")
     private String wechatWebhook;
@@ -46,7 +49,7 @@ public class WechatJobAlarm implements JobAlarm {
             content.append("\n");
             String msg = jobLog.getTriggerMsg();
             if (null != msg && !"".equals(msg.trim())) {
-                System.out.println("waring+++++++++++++++++++++++ 当前请求wechat消息内容为：" + msg);
+                logger.info("当前请求wechat消息内容为：", msg);
                 msg = msg.substring(msg.lastIndexOf("</span><br>") + 11, msg.lastIndexOf("<br><br>"));
             }
             content.append(msg);
@@ -56,7 +59,7 @@ public class WechatJobAlarm implements JobAlarm {
             String[] tokens = wechatWebhook.split(",");//根据，切分字符串
             for (int i = 0; i < tokens.length; i++) {
                 wechatUrl.concat(tokens[i]);
-                System.out.println("waring+++++++++++++++++++++++ 当前请求wechat地址为：" + wechatUrl.concat(tokens[i]));
+                logger.info("当前请求wechat地址为：", wechatUrl.concat(tokens[i]));
                 restTemplate.postForEntity(wechatUrl.concat(tokens[i]), map, Object.class);
             }
         } catch (Exception e) {
