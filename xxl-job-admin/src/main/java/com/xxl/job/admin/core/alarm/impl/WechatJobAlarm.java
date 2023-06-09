@@ -67,8 +67,6 @@ public class WechatJobAlarm implements JobAlarm {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return false;
     }
